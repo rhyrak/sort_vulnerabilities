@@ -1,4 +1,4 @@
-# CENG305 Programming Assignment #2
+# CENG303 Programming Assignment #2
 
 How loading data works:
 1. Look for a cached response body in `./cache` directory
