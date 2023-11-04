@@ -2,44 +2,43 @@ package com.github.rhyrak.model;
 
 public class NISTEntry implements Comparable<NISTEntry> {
     private final Vulnerability entry;
+    private final boolean empty;
 
     public NISTEntry(Vulnerability entry) {
         this.entry = entry;
+        empty = entry.getCve().getMetrics().getCvssMetricV2() == null;
     }
 
     public double getBaseScore() {
-        try {
-            return entry.getCve().getMetrics().getCvssMetricV2().get(0).getCvssData().getBaseScore();
-        }
-        catch(Exception e){
-            return -1;
-        }
+        return entry.getCve().getMetrics().getCvssMetricV2().get(0).getCvssData().getBaseScore();
     }
 
     public double getImpactScore() {
-        try{
         return entry.getCve().getMetrics().getCvssMetricV2().get(0).getImpactScore();
-        }
-        catch(Exception e){
-            return -1;
-        }
     }
 
     public double getExploitabilityScore() {
-        try {
-            return entry.getCve().getMetrics().getCvssMetricV2().get(0).getExploitabilityScore();
-        }
-        catch(Exception e){
-            return -1;
-        }
+        return entry.getCve().getMetrics().getCvssMetricV2().get(0).getExploitabilityScore();
     }
 
     public String getId() {
         return entry.getCve().getId();
     }
 
+    public boolean isEmpty() {
+        return empty;
+    }
+
     @Override
     public int compareTo(NISTEntry o) {
+        if (this.isEmpty()) {
+            if (o.isEmpty()) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+        if (o.isEmpty()) return -1;
         if (this.getBaseScore() != o.getBaseScore())
             return this.getBaseScore() > o.getBaseScore() ? 1 : -1;
         if (this.getImpactScore() != o.getImpactScore())
@@ -50,8 +49,10 @@ public class NISTEntry implements Comparable<NISTEntry> {
         return o.getId().compareTo(this.getId());
     }
 
-    public String toString(){
+    @Override
+    public String toString() {
+        if (this.isEmpty())
+            return "Empty " + getId();
         return getBaseScore() + " " + getImpactScore() + " " + getImpactScore() + " " + getId();
     }
-
 }
