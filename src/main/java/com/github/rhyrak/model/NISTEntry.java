@@ -2,9 +2,11 @@ package com.github.rhyrak.model;
 
 public class NISTEntry implements Comparable<NISTEntry> {
     private final Vulnerability entry;
+    private final boolean empty;
 
     public NISTEntry(Vulnerability entry) {
         this.entry = entry;
+        empty = entry.getCve().getMetrics().getCvssMetricV2() == null;
     }
 
     public double getBaseScore() {
@@ -23,8 +25,13 @@ public class NISTEntry implements Comparable<NISTEntry> {
         return entry.getCve().getId();
     }
 
+    public boolean isEmpty() {
+        return empty;
+    }
+
     @Override
     public int compareTo(NISTEntry o) {
+        if (o.isEmpty()) return -1;
         if (this.getBaseScore() != o.getBaseScore())
             return this.getBaseScore() > o.getBaseScore() ? 1 : -1;
         if (this.getImpactScore() != o.getImpactScore())
