@@ -8,15 +8,30 @@ public class NISTEntry implements Comparable<NISTEntry> {
     }
 
     public double getBaseScore() {
-        return entry.getCve().getMetrics().getCvssMetricV2().get(0).getCvssData().getBaseScore();
+        try {
+            return entry.getCve().getMetrics().getCvssMetricV2().get(0).getCvssData().getBaseScore();
+        }
+        catch(Exception e){
+            return -1;
+        }
     }
 
     public double getImpactScore() {
+        try{
         return entry.getCve().getMetrics().getCvssMetricV2().get(0).getImpactScore();
+        }
+        catch(Exception e){
+            return -1;
+        }
     }
 
     public double getExploitabilityScore() {
-        return entry.getCve().getMetrics().getCvssMetricV2().get(0).getExploitabilityScore();
+        try {
+            return entry.getCve().getMetrics().getCvssMetricV2().get(0).getExploitabilityScore();
+        }
+        catch(Exception e){
+            return -1;
+        }
     }
 
     public String getId() {
@@ -32,6 +47,11 @@ public class NISTEntry implements Comparable<NISTEntry> {
         if (this.getExploitabilityScore() != o.getExploitabilityScore())
             return this.getExploitabilityScore() > o.getExploitabilityScore() ? 1 : -1;
 
-        return this.getId().compareTo(o.getId());
+        return o.getId().compareTo(this.getId());
     }
+
+    public String toString(){
+        return getBaseScore() + " " + getImpactScore() + " " + getImpactScore() + " " + getId();
+    }
+
 }

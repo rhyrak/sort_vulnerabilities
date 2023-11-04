@@ -3,6 +3,7 @@ package com.github.rhyrak;
 import com.github.rhyrak.model.NISTEntry;
 import com.github.rhyrak.model.Root;
 import com.github.rhyrak.model.Vulnerability;
+import com.github.rhyrak.sorter.AVLSort;
 import com.github.rhyrak.sorter.HeapSort;
 import com.github.rhyrak.sorter.Sorter;
 import com.google.gson.Gson;
@@ -38,6 +39,10 @@ public class Main {
         } else {
             System.out.println("Nope");
         }
+
+        Sorter<NISTEntry> AVLSorter = new AVLSort<>();
+        AVLSorter.sort(copy.clone());
+
     }
 
     static void loadVulnerabilities() {
