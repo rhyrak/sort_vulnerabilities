@@ -53,6 +53,6 @@ public class NISTEntry implements Comparable<NISTEntry> {
     public String toString() {
         if (this.isEmpty())
             return "Empty " + getId();
-        return getBaseScore() + " " + getImpactScore() + " " + getImpactScore() + " " + getId();
+        return getBaseScore() + " " + getImpactScore() + " " + getExploitabilityScore() + " " + getId();
     }
 }
