@@ -2,16 +2,21 @@ package com.github.rhyrak.sorter;
 
 import com.github.rhyrak.model.NISTEntry;
 
-public class HeapSort implements Sorter<NISTEntry> {
-    NISTEntry[] local;
+public class HeapSort<T extends Comparable<T>> implements Sorter<T> {
+    T[] local;
     @Override
-    public void sort(NISTEntry[] c) {
+    public void sort(T[] c) {
         // TODO: Implement Heap Sort
-        local = c;
+        local = c.clone();
         this.build();
         for(int i = local.length -1; i > 0; i--) {
            this.swap(0, i);
            this.max_heapify(0);
+        }
+
+        int size = local.length;
+        for(int i = 0; i < size; i++){
+            c[i] = local[i];
         }
 //        NISTEntry temp = c[0];
 //        c[0] = c[1];
@@ -58,7 +63,7 @@ public class HeapSort implements Sorter<NISTEntry> {
     public void swap(int index1, int index2) {
         if(!inBound(index1) && !inBound(index2))
             return;
-        NISTEntry temp = local[index1];
+        T temp = local[index1];
         local[index1] = local[index2];
         local[index2] = temp;
     }
@@ -68,7 +73,7 @@ public class HeapSort implements Sorter<NISTEntry> {
         if(getRight(index) == -1 && getLeft(index) == -1)
             return;
       
-        NISTEntry max = local[index];
+        T max = local[index];
         int maxIndex = index;
         
         if(getRight(index) != -1 && max.compareTo(local[getRight(index)]) < 0) {

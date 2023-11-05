@@ -2,13 +2,13 @@ package com.github.rhyrak.sorter;
 
 import com.github.rhyrak.model.NISTEntry;
 
-public class InsertionSort implements Sorter<NISTEntry>{
-    NISTEntry[] local;
+public class InsertionSort<T extends Comparable<T>> implements Sorter<T>{
+    T[] local;
     @Override
-    public void sort(NISTEntry[] c) {
+    public void sort(T[] c) {
         // TODO: Implement Insertion Sort
-        local = c;
-        NISTEntry value;
+        local = c.clone();
+        T value;
         int size = local.length;
         System.out.println(size);
         for(int i = 1; i < size; i++) {
@@ -20,10 +20,14 @@ public class InsertionSort implements Sorter<NISTEntry>{
                     break;
             }
         }
+
+        for(int i = 0; i < size; i++){
+            c[i] = local[i];
+        }
     }
     // swap entries
     public void swap(int index1, int index2) {
-        NISTEntry temp = local[index1];
+        T temp = local[index1];
         local[index1] = local[index2];
         local[index2] = temp;
     }

@@ -31,22 +31,28 @@ public class NISTEntry implements Comparable<NISTEntry> {
 
     @Override
     public int compareTo(NISTEntry o) {
-        if (this.isEmpty()) {
-            if (o.isEmpty()) {
-                return 0;
-            } else {
+        if(this.isEmpty() && o.isEmpty()){
+            return o.getId().compareTo(this.getId());
+        }
+        else if(this.isEmpty() || o.isEmpty()){
+            if(this.isEmpty()){
+                return -1;
+            }
+            else{
                 return 1;
             }
         }
-        if (o.isEmpty()) return -1;
-        if (this.getBaseScore() != o.getBaseScore())
-            return this.getBaseScore() > o.getBaseScore() ? 1 : -1;
-        if (this.getImpactScore() != o.getImpactScore())
-            return this.getImpactScore() > o.getImpactScore() ? 1 : -1;
-        if (this.getExploitabilityScore() != o.getExploitabilityScore())
-            return this.getExploitabilityScore() > o.getExploitabilityScore() ? 1 : -1;
+        else{
+            if (this.getBaseScore() != o.getBaseScore())
+                return this.getBaseScore() > o.getBaseScore() ? 1 : -1;
+            if (this.getImpactScore() != o.getImpactScore())
+                return this.getImpactScore() > o.getImpactScore() ? 1 : -1;
+            if (this.getExploitabilityScore() != o.getExploitabilityScore())
+                return this.getExploitabilityScore() > o.getExploitabilityScore() ? 1 : -1;
 
-        return o.getId().compareTo(this.getId());
+            return o.getId().compareTo(this.getId());
+        }
+
     }
 
     @Override

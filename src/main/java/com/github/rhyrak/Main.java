@@ -3,9 +3,7 @@ package com.github.rhyrak;
 import com.github.rhyrak.model.NISTEntry;
 import com.github.rhyrak.model.Root;
 import com.github.rhyrak.model.Vulnerability;
-import com.github.rhyrak.sorter.AVLSort;
-import com.github.rhyrak.sorter.HeapSort;
-import com.github.rhyrak.sorter.Sorter;
+import com.github.rhyrak.sorter.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -20,6 +18,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
     static final String baseUrl = "https://services.nvd.nist.gov/rest/json/cves/2.0/";
@@ -30,18 +29,44 @@ public class Main {
     public static void main(String[] args) {
         loadVulnerabilities();
 
-        Sorter<NISTEntry> sorter = new HeapSort();
-        NISTEntry[] copy = vulnerabilities.toArray(new NISTEntry[50000]);
-        NISTEntry x = copy[0];
-        sorter.sort(copy);
-        if (x == copy[1] && x == vulnerabilities.get(0)) {
-            System.out.println("Yep");
-        } else {
-            System.out.println("Nope");
-        }
-
+        Sorter<NISTEntry> Heapsorter = new HeapSort<>();
         Sorter<NISTEntry> AVLSorter = new AVLSort<>();
-        AVLSorter.sort(copy.clone());
+        Sorter<NISTEntry> InsertionSorter = new InsertionSort<>();
+        Sorter<NISTEntry> QuickSorter = new QuickSort<>();
+
+        NISTEntry[] copy = vulnerabilities.toArray(new NISTEntry[50000]);
+
+        @SuppressWarnings("SpellCheckingInspection")
+        NISTEntry[] Heapcopy = copy.clone();
+        @SuppressWarnings("SpellCheckingInspection")
+        NISTEntry[] AVLcopy = copy.clone();
+        @SuppressWarnings("SpellCheckingInspection")
+        NISTEntry[] Insertioncopy = copy.clone();
+        @SuppressWarnings("SpellCheckingInspection")
+        NISTEntry[] Quickcopy = copy.clone();
+
+
+        Heapsorter.sort(Heapcopy);
+        AVLSorter.sort(AVLcopy);
+        InsertionSorter.sort(Insertioncopy);
+        QuickSorter.sort(Quickcopy);
+
+        System.out.println(Heapcopy.length);
+        System.out.println(AVLcopy.length);
+        System.out.println(Insertioncopy.length);
+        System.out.println(Quickcopy.length);
+
+        System.out.println(Arrays.equals(AVLcopy, Heapcopy));
+        System.out.println(Arrays.equals(AVLcopy, Insertioncopy));
+        System.out.println(Arrays.equals(AVLcopy, Quickcopy));
+
+        for(int p = 0; p < Heapcopy.length/50; p++){
+            System.out.println(Heapcopy[p]);
+            System.out.println(Insertioncopy[p]);
+            System.out.println(AVLcopy[p]);
+            System.out.println(Quickcopy[p]);
+            System.out.println();
+        }
 
     }
 

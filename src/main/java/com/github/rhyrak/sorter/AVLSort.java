@@ -13,9 +13,10 @@ public class AVLSort<T extends Comparable<T>> implements Sorter<T>{
         for(int i = 0; i < size; i++){
             insertNode(c[i]);
         }
+
         retrieveInorder(root, sorted);
         for(int i = 0; i < size; i++){
-            System.out.println(sorted.get(i));
+            c[i] = sorted.get(i);
         }
     }
 
