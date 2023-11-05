@@ -8,11 +8,14 @@ public class InsertionSort implements Sorter<NISTEntry>{
     public void sort(NISTEntry[] c) {
         // TODO: Implement Insertion Sort
         local = c;
+        NISTEntry value;
         int size = local.length;
-        for(int i = 0; i < size; i++) {
+        System.out.println(size);
+        for(int i = 1; i < size; i++) {
+            value = local[i];
             for(int j = i - 1; j >= 0; j--) {
-                if(local[i].compareTo(local[j]) < 0)
-                    swap(i, j);
+                if(value.compareTo(local[j]) < 0)
+                    swap(j + 1, j);
                 else
                     break;
             }
