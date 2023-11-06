@@ -35,7 +35,11 @@ public class Main {
     static Gson parser = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
     public static void main(String[] args) {
-        loadVulnerabilities();
+        // make sure all of them are loaded
+        while (vulnerabilities.size() < 50000) {
+            vulnerabilities = new ArrayList<>(50000);
+            loadVulnerabilities();
+        }
 
         Sorter<NISTEntry> Heapsorter = new HeapSort<>();
         Sorter<NISTEntry> AVLSorter = new AVLSort<>();
