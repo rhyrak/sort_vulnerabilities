@@ -33,6 +33,7 @@ public class Main {
         Sorter<NISTEntry> AVLSorter = new AVLSort<>();
         Sorter<NISTEntry> InsertionSorter = new InsertionSort<>();
         Sorter<NISTEntry> QuickSorter = new QuickSort<>();
+        Sorter<NISTEntry> MergeSorter = new MergeSort<>();
 
         NISTEntry[] copy = vulnerabilities.toArray(new NISTEntry[50000]);
 
@@ -41,32 +42,59 @@ public class Main {
         @SuppressWarnings("SpellCheckingInspection")
         NISTEntry[] AVLcopy = copy.clone();
         @SuppressWarnings("SpellCheckingInspection")
-        NISTEntry[] Insertioncopy = copy.clone();
+        NISTEntry[] Insertioncopy = Arrays.copyOf(copy, 10000);
         @SuppressWarnings("SpellCheckingInspection")
         NISTEntry[] Quickcopy = copy.clone();
+        @SuppressWarnings("SpellCheckingInspection")
+        NISTEntry[] Mergecopy = copy.clone();
 
-
+        long start = System.currentTimeMillis();        
         Heapsorter.sort(Heapcopy);
+        long finish = System.currentTimeMillis();
+        long timeSpent = finish - start;
+        System.out.println("Heap Sorting complete. Time Spent : " + timeSpent + " ms");
+        
+        start = System.currentTimeMillis();
         AVLSorter.sort(AVLcopy);
+        finish = System.currentTimeMillis();
+        timeSpent = finish - start;
+        System.out.println("AVL Sorting complete. Time Spent : " + timeSpent + " ms");
+        
+        start = System.currentTimeMillis();
         InsertionSorter.sort(Insertioncopy);
+        finish = System.currentTimeMillis();
+        timeSpent = finish - start;
+        System.out.println("Insertion Sorting complete. Time Spent : " + timeSpent + " ms");
+        
+        start = System.currentTimeMillis();
         QuickSorter.sort(Quickcopy);
+        finish = System.currentTimeMillis();
+        timeSpent = finish - start;
+        System.out.println("Quick Sorting complete. Time Spent : " + timeSpent + " ms");
+        
+        start = System.currentTimeMillis();
+        MergeSorter.sort(Mergecopy);
+        finish = System.currentTimeMillis();
+        timeSpent = finish - start;
+        System.out.println("Merge Sorting complete. Time Spent : " + timeSpent + " ms");
 
-        System.out.println(Heapcopy.length);
-        System.out.println(AVLcopy.length);
-        System.out.println(Insertioncopy.length);
-        System.out.println(Quickcopy.length);
+//        System.out.println(Heapcopy.length);
+//        System.out.println(AVLcopy.length);
+//        System.out.println(Insertioncopy.length);
+//        System.out.println(Quickcopy.length);
 
-        System.out.println(Arrays.equals(AVLcopy, Heapcopy));
-        System.out.println(Arrays.equals(AVLcopy, Insertioncopy));
-        System.out.println(Arrays.equals(AVLcopy, Quickcopy));
+//        System.out.println(Arrays.equals(AVLcopy, Heapcopy));
+//        System.out.println(Arrays.equals(AVLcopy, Insertioncopy));
+//        System.out.println(Arrays.equals(AVLcopy, Quickcopy));
+//
+//        for(int p = 0; p < Heapcopy.length/50; p++){
+//            System.out.println(Heapcopy[p]);
+//            System.out.println(Insertioncopy[p]);
+//            System.out.println(AVLcopy[p]);
+//            System.out.println(Quickcopy[p]);
+//            System.out.println();
+//        }
 
-        for(int p = 0; p < Heapcopy.length/50; p++){
-            System.out.println(Heapcopy[p]);
-            System.out.println(Insertioncopy[p]);
-            System.out.println(AVLcopy[p]);
-            System.out.println(Quickcopy[p]);
-            System.out.println();
-        }
 
     }
 
