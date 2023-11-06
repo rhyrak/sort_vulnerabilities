@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class Main {
     static final String baseUrl = "https://services.nvd.nist.gov/rest/json/cves/2.0/";
     static ArrayList<NISTEntry> vulnerabilities = new ArrayList<>(50000);
@@ -37,21 +38,18 @@ public class Main {
 
         NISTEntry[] copy = vulnerabilities.toArray(new NISTEntry[50000]);
 
-        @SuppressWarnings("SpellCheckingInspection")
         NISTEntry[] Heapcopy = copy.clone();
-        @SuppressWarnings("SpellCheckingInspection")
         NISTEntry[] AVLcopy = copy.clone();
-        @SuppressWarnings("SpellCheckingInspection")
         NISTEntry[] Insertioncopy = Arrays.copyOf(copy, 10000);
-        @SuppressWarnings("SpellCheckingInspection")
         NISTEntry[] Quickcopy = copy.clone();
-        @SuppressWarnings("SpellCheckingInspection")
         NISTEntry[] Mergecopy = copy.clone();
 
-        long start = System.currentTimeMillis();        
+        long start,finish,timeSpent;
+
+        start = System.currentTimeMillis();
         Heapsorter.sort(Heapcopy);
-        long finish = System.currentTimeMillis();
-        long timeSpent = finish - start;
+        finish = System.currentTimeMillis();
+        timeSpent = finish - start;
         System.out.println("Heap Sorting complete. Time Spent : " + timeSpent + " ms");
         
         start = System.currentTimeMillis();
