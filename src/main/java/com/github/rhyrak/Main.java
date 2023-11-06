@@ -154,7 +154,7 @@ public class Main {
                 "?resultsPerPage=" + resultsPerPage + "&startIndex=" + startIndex);
 
         if (cachedFile.exists()) {
-            System.out.println("[HIT] Loading from disk: " + apiUri);
+            System.out.println("[HIT] Loading from disk: " + cachedFile.toString());
             jsonData = loadFromDisk(cachedFile);
             wasCached = true;
         } else {
