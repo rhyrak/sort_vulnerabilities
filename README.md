@@ -1,7 +1,8 @@
 # CENG303 Programming Assignment #2
 
 Since the fetching data takes a significant amount of time, we also included responses in `responses.zip`.
-You can extract them into `cache` folder to save time and delete some of the files to check if the program can fetch data
+You can extract them into `cache` folder to save time and delete some of the files to check if the program can fetch
+data
 from the api.
 
 ## Usage
@@ -45,4 +46,5 @@ from the api.
 ### Output
 
 Output of `java -jar pa2.jar` with 1 missing cached file (start index 38000):
-<img src="output.png"  alt="screenshot of console showing the result of program."/>
+<img src="output0.png"  alt="screenshot of console showing the result of program."/>
+<img src="output1.png"  alt="screenshot of console showing the result of program."/>
