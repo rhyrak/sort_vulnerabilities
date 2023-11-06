@@ -24,7 +24,6 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -52,32 +51,32 @@ public class Main {
         NISTEntry[] Quickcopy = copy.clone();
         NISTEntry[] Mergecopy = copy.clone();
 
-        long start,finish,timeSpent;
+        long start, finish, timeSpent;
 
         start = System.currentTimeMillis();
         Heapsorter.sort(Heapcopy);
         finish = System.currentTimeMillis();
         timeSpent = finish - start;
         System.out.println("Heap Sorting complete. Time Spent : " + timeSpent + " ms");
-        
+
         start = System.currentTimeMillis();
         AVLSorter.sort(AVLcopy);
         finish = System.currentTimeMillis();
         timeSpent = finish - start;
         System.out.println("AVL Sorting complete. Time Spent : " + timeSpent + " ms");
-        
+
         start = System.currentTimeMillis();
         InsertionSorter.sort(Insertioncopy);
         finish = System.currentTimeMillis();
         timeSpent = finish - start;
         System.out.println("Insertion Sorting complete(10,000 entries). Time Spent : " + timeSpent + " ms");
-        
+
         start = System.currentTimeMillis();
         QuickSorter.sort(Quickcopy);
         finish = System.currentTimeMillis();
         timeSpent = finish - start;
         System.out.println("Quick Sorting complete. Time Spent : " + timeSpent + " ms");
-        
+
         start = System.currentTimeMillis();
         MergeSorter.sort(Mergecopy);
         finish = System.currentTimeMillis();
@@ -107,10 +106,15 @@ public class Main {
 
     }
 
+    // entry point for filling `vulnerabilities` array
     static void loadVulnerabilities() {
         try {
+            // Loop to fetch data
             for (int i = 0; i < 50000; i += 2000) {
+                // Fetch the next 2000 objects starting at index i
                 boolean res = fetchData("2000", String.valueOf(i));
+
+                // Retry the fetch up to three times if it fails
                 for (int tries = 0; !res && tries < 3; tries++) {
                     System.out.println("[RETRYING]");
                     res = fetchData("2000", String.valueOf(i));
@@ -120,10 +124,20 @@ public class Main {
         } catch (URISyntaxException | IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+        // Print the number of entries loaded
         System.out.println("Loaded " + vulnerabilities.size() + " entries.");
     }
 
-    static boolean fetchData(String resultsPerPage , String startIndex) throws URISyntaxException, IOException, InterruptedException {
+    /**
+     * Fetches data from the NIST's API or loads it from a cached file and parses the results.
+     * Parsed objects are added to the `vulnerabilities` array.
+     *
+     * @param resultsPerPage The number of results per page to fetch from the API.
+     * @param startIndex     The starting index for the API request.
+     * @return True if the data was successfully fetched and parsed; otherwise, false.
+     */
+    static boolean fetchData(String resultsPerPage, String startIndex) throws URISyntaxException, IOException, InterruptedException {
         String jsonData = null;
         boolean wasCached = false;
         File cachedFile = new File("cache/rpp" + resultsPerPage + "si" + startIndex + ".json");
@@ -157,8 +171,7 @@ public class Main {
                     System.out.println("[FAILED] Server returned " + jsonData);
                     System.out.println("[INFO] Sleeping 10 seconds");
                     Thread.sleep(10000);
-                }
-                else
+                } else
                     System.out.println("[FAILED] Parse error");
             }
             return false;
@@ -169,32 +182,56 @@ public class Main {
         return true;
     }
 
-
+    /**
+     * Loads the content of a file from disk and returns it as a string.
+     *
+     * @param file The file to be loaded from disk.
+     * @return The content of the file as a string.
+     */
     private static String loadFromDisk(File file) throws IOException {
         try (FileInputStream fileInputStream = new FileInputStream(file)) {
             return new String(fileInputStream.readAllBytes());
         }
     }
 
+    /**
+     * Sends an HTTP GET request to the specified URI and returns the response body on success.
+     *
+     * @param uri The URI of the resource to request.
+     * @return The response body as a string if the status code is 200 (OK),
+     * or the status code as a string if the response is not successful.
+     */
     private static String getFromAPI(URI uri) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> response = client.send(HttpRequest.newBuilder()
                         .GET()
                         .uri(uri)
                         .build(),
-                HttpResponse.BodyHandlers.ofString(StandardCharsets.US_ASCII));
+                HttpResponse.BodyHandlers.ofString());
+
+        // check if the response status code is not 200
         if (response.statusCode() != 200)
             return String.valueOf(response.statusCode());
 
         return response.body();
     }
 
+    /**
+     * Caches the respone body to a file in `cache` directory.
+     *
+     * @param file    Name of the file to cache the response body
+     * @param resBody Content that will be cached
+     */
     private static void cacheBody(String file, String resBody) {
+        // create the cache directory if it does not exist
         File f = new File("cache");
-        f.mkdir();
+        if (!f.exists())
+            f.mkdir();
+
+        // Write the response body content to the file
         f = new File("cache/" + file);
         try (FileOutputStream fos = new FileOutputStream(f)) {
-            fos.write(resBody.getBytes(StandardCharsets.ISO_8859_1));
+            fos.write(resBody.getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
