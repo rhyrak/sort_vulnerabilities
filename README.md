@@ -44,4 +44,5 @@ from the api.
 
 ### Output
 
+Output of `java -jar pa2.jar` with 1 missing cached file (start index 38000):
 <img src="output.png"  alt="screenshot of console showing the result of program."/>
