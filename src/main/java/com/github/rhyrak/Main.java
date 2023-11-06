@@ -62,7 +62,7 @@ public class Main {
         InsertionSorter.sort(Insertioncopy);
         finish = System.currentTimeMillis();
         timeSpent = finish - start;
-        System.out.println("Insertion Sorting complete. Time Spent : " + timeSpent + " ms");
+        System.out.println("Insertion Sorting complete(10,000 entries). Time Spent : " + timeSpent + " ms");
         
         start = System.currentTimeMillis();
         QuickSorter.sort(Quickcopy);
@@ -86,6 +86,7 @@ public class Main {
         System.out.println(Arrays.equals(AVLcopy, Heapcopy));
         System.out.println(Arrays.equals(AVLcopy, Mergecopy));
         System.out.println(Arrays.equals(AVLcopy, Quickcopy));
+        System.out.println(Arrays.equals(AVLcopy, Insertioncopy));
 
         for(int p = 0; p < Heapcopy.length/50; p++){
             System.out.println(Heapcopy[p]);
