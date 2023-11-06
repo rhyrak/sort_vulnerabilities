@@ -93,12 +93,17 @@ public class Main {
         System.out.println(Insertioncopy.length);
         System.out.println(Quickcopy.length);
         System.out.println(Mergecopy.length);
-
-        System.out.println(Arrays.equals(AVLcopy, Heapcopy));
-        System.out.println(Arrays.equals(AVLcopy, Mergecopy));
-        System.out.println(Arrays.equals(AVLcopy, Quickcopy));
-        System.out.println(Arrays.equals(AVLcopy, Insertioncopy));
-
+ */
+        System.out.println();
+        System.out.println("Comparing sorted arrays:");
+        System.out.println("Arrays.equals(AVLcopy, Heapcopy): " + Arrays.equals(AVLcopy, Heapcopy));
+        System.out.println("Arrays.equals(AVLcopy, Mergecopy): " + Arrays.equals(AVLcopy, Mergecopy));
+        System.out.println("Arrays.equals(AVLcopy, Quickcopy): " + Arrays.equals(AVLcopy, Quickcopy));
+        if (Insertioncopy.length == AVLcopy.length)
+            System.out.println("Arrays.equals(AVLcopy, Insertioncopy): " + Arrays.equals(AVLcopy, Insertioncopy));
+        else
+            System.out.println("Insertioncopy.length: " + Insertioncopy.length);
+/*
         for(int p = 0; p < Heapcopy.length/50; p++){
             System.out.println(Heapcopy[p]);
             System.out.println(Mergecopy[p]);
