@@ -76,6 +76,7 @@ public class Main {
         timeSpent = finish - start;
         System.out.println("Merge Sorting complete. Time Spent : " + timeSpent + " ms");
 
+/*
         System.out.println(Heapcopy.length);
         System.out.println(AVLcopy.length);
         System.out.println(Insertioncopy.length);
@@ -93,7 +94,7 @@ public class Main {
             System.out.println(Quickcopy[p]);
             System.out.println();
         }
-
+*/
 
     }
 
