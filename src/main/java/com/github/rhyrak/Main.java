@@ -76,22 +76,23 @@ public class Main {
         timeSpent = finish - start;
         System.out.println("Merge Sorting complete. Time Spent : " + timeSpent + " ms");
 
-//        System.out.println(Heapcopy.length);
-//        System.out.println(AVLcopy.length);
-//        System.out.println(Insertioncopy.length);
-//        System.out.println(Quickcopy.length);
+        System.out.println(Heapcopy.length);
+        System.out.println(AVLcopy.length);
+        System.out.println(Insertioncopy.length);
+        System.out.println(Quickcopy.length);
+        System.out.println(Mergecopy.length);
 
-//        System.out.println(Arrays.equals(AVLcopy, Heapcopy));
-//        System.out.println(Arrays.equals(AVLcopy, Insertioncopy));
-//        System.out.println(Arrays.equals(AVLcopy, Quickcopy));
-//
-//        for(int p = 0; p < Heapcopy.length/50; p++){
-//            System.out.println(Heapcopy[p]);
-//            System.out.println(Insertioncopy[p]);
-//            System.out.println(AVLcopy[p]);
-//            System.out.println(Quickcopy[p]);
-//            System.out.println();
-//        }
+        System.out.println(Arrays.equals(AVLcopy, Heapcopy));
+        System.out.println(Arrays.equals(AVLcopy, Mergecopy));
+        System.out.println(Arrays.equals(AVLcopy, Quickcopy));
+
+        for(int p = 0; p < Heapcopy.length/50; p++){
+            System.out.println(Heapcopy[p]);
+            System.out.println(Mergecopy[p]);
+            System.out.println(AVLcopy[p]);
+            System.out.println(Quickcopy[p]);
+            System.out.println();
+        }
 
 
     }
@@ -112,7 +113,7 @@ public class Main {
         System.out.println("Loaded " + vulnerabilities.size() + " entries.");
     }
 
-    static boolean fetchData(String resultsPerPage, String startIndex) throws URISyntaxException, IOException, InterruptedException {
+    static boolean fetchData(String resultsPerPage , String startIndex) throws URISyntaxException, IOException, InterruptedException {
         String jsonData = null;
         boolean wasCached = false;
         File cachedFile = new File("cache/rpp" + resultsPerPage + "si" + startIndex + ".json");

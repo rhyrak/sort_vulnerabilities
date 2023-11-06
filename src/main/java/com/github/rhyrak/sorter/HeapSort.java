@@ -1,14 +1,12 @@
 package com.github.rhyrak.sorter;
 
-import com.github.rhyrak.model.NISTEntry;
-
+@SuppressWarnings("SpellCheckingInspection")
 public class HeapSort<T extends Comparable<T>> implements Sorter<T> {
     private T[] local;
     private int heapsize = 0;
     @Override
-    public void sort(T[] c) {
-        // TODO: Implement Heap Sort
-        local = c.clone();
+    public void sort(T[] entries) {
+        local = entries.clone();
         this.build();
         for(int i = local.length -1; i >= 0; i--) {
             swap(i, 0);
@@ -16,9 +14,7 @@ public class HeapSort<T extends Comparable<T>> implements Sorter<T> {
             max_heapify(0);
         }
         int size = local.length;
-        for(int i = 0; i < size; i++){
-            c[i] = local[i];
-        }
+        System.arraycopy(local, 0, entries, 0, size);
     }
     
     //build a max heap
@@ -32,7 +28,7 @@ public class HeapSort<T extends Comparable<T>> implements Sorter<T> {
     
     //check bounds
     private boolean inBound(int index) {
-        return (index < heapsize && index >= 0 ) ? true : false;
+        return index < heapsize && index >= 0;
     }
     
     //get left child

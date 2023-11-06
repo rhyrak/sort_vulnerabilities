@@ -1,11 +1,9 @@
 package com.github.rhyrak.sorter;
 
-import com.github.rhyrak.model.NISTEntry;
-
 public class QuickSort<T extends Comparable<T>> implements Sorter<T> {
     @Override
-    public void sort(T[] c) {
-        quickSort(c, 0, c.length - 1); //Starting the quick-sort 
+    public void sort(T[] entries) {
+        quickSort(entries, 0, entries.length - 1); //Starting the quick-sort 
     }
 
     //Implementing the quick-sort algorithm

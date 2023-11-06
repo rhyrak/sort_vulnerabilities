@@ -1,22 +1,19 @@
 package com.github.rhyrak.sorter;
 
-import com.github.rhyrak.model.NISTEntry;
-
 import java.util.ArrayList;
 public class AVLSort<T extends Comparable<T>> implements Sorter<T>{
 
     @Override
-    public void sort(T[] c) {
-        // TODO: Implement AVL Sort
-        int size = c.length;
+    public void sort(T[] entries) {
+        int size = entries.length;
         ArrayList<T> sorted = new ArrayList<>();
-        for(int i = 0; i < size; i++){
-            insertNode(c[i]);
+        for (T entry : entries) {
+            insertNode(entry);
         }
 
         retrieveInorder(root, sorted);
         for(int i = 0; i < size; i++){
-            c[i] = sorted.get(i);
+            entries[i] = sorted.get(i);
         }
     }
 
@@ -104,58 +101,7 @@ public class AVLSort<T extends Comparable<T>> implements Sorter<T>{
         return AVLBalance(val, localRoot);
     }
 
-    public Node<T> deleteNode(T val){
-        return deleteNode(val, root);
-    }
-
-    public Node<T> deleteNode(T val, Node<T> localRoot){
-        if(localRoot == null){
-            return null;
-        }
-        else if(boolCompare(localRoot.getValue().compareTo(val))){
-            localRoot.setLeft(deleteNode(val, localRoot.getLeft()));
-        }
-        else if(boolCompare(val.compareTo(localRoot.getValue()))){
-            localRoot.setRight(deleteNode(val, localRoot.getRight()));
-        }
-        else{
-            if(localRoot.getLeft() == null){
-                Node<T> tNode = localRoot.getRight();
-                localRoot = null;
-                return tNode;
-            }
-            else if(localRoot.getRight() == null){
-                Node<T> tNode = localRoot.getLeft();
-                localRoot = null;
-                return tNode;
-            }
-            Node<T> tNode = getMinNode(localRoot.getRight());
-            localRoot.setValue(tNode.getValue());
-            localRoot.setRight(deleteNode(tNode.getValue(), localRoot.getRight()));
-        }
-
-        localRoot.setHeight(Math.max(getNodeHeight(localRoot.getLeft()), getNodeHeight(localRoot.getRight())) + 1);
-
-        return AVLBalance(val, localRoot);
-    }
-
-    /*
-    public Node search(T val){
-        Node node = root;
-
-        while(node != null && node.getValue() != val){
-            if(node.getValue() > val) {
-                node = node.getLeft();
-            }
-            else{
-                node = node.getRight();
-            }
-        }
-        return node;
-    }
-
-*/
-
+    @SuppressWarnings("unused")
     public Node<T> getMinNode(Node<T> node){
         if(node.getLeft() == null){
             return node;
@@ -207,10 +153,12 @@ public class AVLSort<T extends Comparable<T>> implements Sorter<T>{
         return i;
     }
 
+    @SuppressWarnings("unused")
     public int getNumberOfNodes(){
         return getNumberOfNodes(this.root);
     }
 
+    @SuppressWarnings("unused")
     public void display(){
         printInorder(this.root);
     }
@@ -232,6 +180,7 @@ public class AVLSort<T extends Comparable<T>> implements Sorter<T>{
             return val;
         }
 
+        @SuppressWarnings("unused")
         public void setValue(T val){
             this.val = val;
         }
