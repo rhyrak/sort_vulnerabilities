@@ -1,7 +1,7 @@
 # CENG303 Programming Assignment #2
 
 Since the fetching data takes a significant amount of time, we also included responses in `responses.zip`.
-You can extract them into `cahce` file to save time and delete some of the files to check if the program can fetch data
+You can extract them into `cache` file to save time and delete some of the files to check if the program can fetch data
 from the api.
 
 ## Usage
