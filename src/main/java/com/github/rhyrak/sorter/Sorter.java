@@ -8,6 +8,16 @@
 
 package com.github.rhyrak.sorter;
 
+/**
+ * An interface for sorting an array of elements of a generic type.
+ *
+ * @param <T> The type of elements to be sorted, which must implement Comparable.
+ */
 public interface Sorter<T extends Comparable<T>> {
+    /**
+     * Sorts the given array
+     *
+     * @param entries Array of elements to be sorted.
+     */
     void sort(T[] entries);
 }
